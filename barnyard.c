@@ -151,7 +151,7 @@ double expound(double base, int exp)	{	// currently int-only, at least for expon
 	return lv;
 }
 
-int prime(unsigned int i, unsigned int n, short uint f)	{ 	// i = ith prime number, if n is set, i is ignored. n will test for a prime number. f is a flag, set to TRUE if you want reports.
+int prime(unsigned int i, unsigned int n, short unsigned int f)	{ 	// i = ith prime number, if n is set, i is ignored. n will test for a prime number. f is a flag, set to TRUE if you want reports.
 	
 	if(n!=0)	{
 		// trial division algorithm, divide n by every integer between 2 and sqrt(n), as at n = a . b, either a
@@ -176,8 +176,8 @@ int prime(unsigned int i, unsigned int n, short uint f)	{ 	// i = ith prime numb
 			return n;
 		}
 		
-		uint sqrt_ = ceil(sqrt(n)) + 1;
-		for (uint k = 2; k < sqrt_; k++)
+		unsigned int sqrt_ = ceil(sqrt(n)) + 1;
+		for (unsigned int k = 2; k < sqrt_; k++)
 			if((n % k) == 0)	{
 				
 				if(f!=0)
@@ -212,7 +212,7 @@ int prime(unsigned int i, unsigned int n, short uint f)	{ 	// i = ith prime numb
 }
 
 
-int primedata(unsigned int min, unsigned int max, uint step)	{
+int primedata(unsigned int min, unsigned int max, unsigned int step)	{
 	// step: if set to 1, the step increment is to accumulate +1 for each prime number discovered.
 	// if set to 2, the step increment is the distance to the current prime from the last prime (v. low number, usually single digits)
 	// otherwise, the step increment is accumulative of each step-change between each pair of current & last prime number.
@@ -220,9 +220,9 @@ int primedata(unsigned int min, unsigned int max, uint step)	{
 	
 	char * s = allocs(1024*8*10);
 	
-	uint p = 0;
-	uint p2 = 0;
-	uint c = 0;
+	unsigned int p = 0;
+	unsigned int p2 = 0;
+	unsigned int c = 0;
 	
 	max += 1;
 	
@@ -287,5 +287,31 @@ int primedata(unsigned int min, unsigned int max, uint step)	{
 		['4'   3],
 		['5',  5]	
 	*/
+}
+
+/*
+* function: (char *) cat(argc, str1, str2, ..., strN)
+*
+* definition: arg0 = (int) num of subsequent variadic arguments to concatenate to str1. Returns concatenated string, as well as populating str1 with the concatenated string.
+*
+* uses: safecat(str1, str2)
+*/
+char * cat(int c, char * s, ...)	{
+	
+	va_list ap;
+	char * _ = (char *)malloc(4096);
+	_[4095] = '\0';
+	
+	strcpy(_, s);
+
+	va_start(ap, c);
+	for(short int i=0; i<c; i++)	{
+	
+		_ = safecat(_, (char *)va_arg(ap, char*));
+	}
+	va_end(ap);
+	
+	DEBUG_MSG("exiting cat()")
+	return _;
 }
 

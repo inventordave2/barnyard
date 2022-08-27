@@ -47,14 +47,15 @@
 		char Developer[100];
 	};
 
-char * itoa2(int v);
-double qdiv(double n, double d);
-double qdiv_i(int n, int d);
+	char * itoa2(int v);
+	double qdiv(double n, double d);
+	double qdiv_i(int n, int d);
 
-char * safecat(char * s, char * rhs);
-double expound(double base, int exp);
-int prime(unsigned int i, unsigned int n, short uint f);
-int primedata(unsigned int min, unsigned int max, uint step);
+	char * cat(int c, char * s, ...);
+	char * safecat(char * s, char * rhs);
+	double expound(double base, int exp);
+	int prime(unsigned int, unsigned, short unsigned int);
+	int primedata(unsigned int min, unsigned int max, unsigned int step);
 
 
 #endif
